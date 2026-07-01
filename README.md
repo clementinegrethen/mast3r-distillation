@@ -8,11 +8,23 @@
 
 **Paper:** [arXiv placeholder] | **[Project Page](https://clementinegrethen.github.io/publications/ECCV.html)**
 
-> A framework for distilling MASt3R into lightweight student models for
-> domain-specific 3D reconstruction.  The primary contribution is the
-> **distillation pipeline** — not a model zoo.  Users can plug in any student
-> architecture, apply SVD-based decoder initialization, enable feature
-> alignment loss, and train on any stereo-pair dataset.
+> This repository provides a **knowledge distillation framework** for compressing
+> large stereo 3D reconstruction models (teacher) into lightweight student networks.
+> The **teacher** is [MASt3R](https://github.com/naver/mast3r), a 688M-parameter
+> geometric foundation model that reconstructs dense 3D point maps and camera pose
+> from uncalibrated stereo pairs.  **Students** are compact networks (CNN or ViT encoder
+> + lightweight cross-view decoder) trained to reproduce the teacher's dense predictions
+> without requiring ground-truth annotations.
+>
+> We demonstrate the framework on two complementary experiments:
+> - **Experiment 1 — Specialized distillation (Moon):** teacher is MOONSt3R, a
+>   lunar-finetuned MASt3R; students are specialized for lunar stereo reconstruction.
+> - **Experiment 2 — Generalist distillation (BlendedMVS):** teacher is the standard
+>   MASt3R foundation model; students distill general-purpose 3D reconstruction.
+>
+> The primary contribution is the **distillation pipeline** — not a model zoo.
+> Users can plug in any student architecture, apply SVD-based decoder initialization,
+> enable feature alignment loss, and train on any stereo-pair dataset.
 
 ---
 
@@ -256,7 +268,12 @@ Enable from the command line:
 
 ---
 
-## Usage Example 1 — StereoLunar (Moon)
+## Usage Example 1 — StereoLunar (Specialized Distillation)
+
+**Teacher:** MOONSt3R — MASt3R fine-tuned on the StereoLunar dataset, adapted to
+lunar orbital imagery (low texture, extreme illumination, limited parallax).
+Students are trained to specialize in this domain from the adapted teacher's
+dense pseudo-GT, without requiring ground-truth depth or pose annotations.
 
 ### Dataset structure
 
@@ -339,7 +356,19 @@ python compare_pair_reports.py --root results/moon/
 
 ---
 
-## Usage Example 2 — BlendedMVS
+## Usage Example 2 — BlendedMVS (Generalist Distillation)
+
+**Teacher:** standard MASt3R (`MASt3R_ViTLarge_BaseDecoder_512_catmlpdpt_metric.pth`) —
+a general-purpose 3D foundation model, not domain-adapted.  This experiment shows that
+the same distillation pipeline transfers to a generalist setting.
+
+**Key findings on this benchmark:**
+- **SVD initialization** consistently improves convergence and final performance across all students.
+- **Feature alignment loss** helps when the encoder is fine-tuned; it can slightly hurt when the encoder is frozen (adapter-only training).
+- **Encoder adaptation is critical**: freezing the DINOv2 backbone leads to a significant performance drop, confirming that the pretrained features must be adapted even when starting from a strong initialization.
+- **Decoder compression is safe**: reducing the decoder from 512/6 to 256/4 incurs only marginal degradation, while halving the decoder parameter count.
+
+> 📄 A follow-up paper extending these findings to additional datasets and architectures is currently in preparation.
 
 ### Dataset structure
 
