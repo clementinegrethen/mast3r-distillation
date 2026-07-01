@@ -35,7 +35,7 @@ Teacher (MASt3R, frozen)
 ```
 
 All students share a single teacher forward pass per iteration.  Each student
-is trained independently (separate optimizer, separate checkpoint) with three
+is trained independently (separate optimizer, separate checkpoint) with two
 optional loss components:
 
 1. **Geometry loss** (output-level): `ConfLoss(Regr3D)` + `ConfMatchingLoss` applied
@@ -46,10 +46,6 @@ optional loss components:
    features between student and teacher using a cosine-margin loss (Depth
    Anything V2, Eq. 9).  A learnable per-student projector handles dimension
    mismatches and is trained jointly with the encoder.
-
-3. **Gradient smoothness loss** (optional, `--lambda_grad`): penalizes
-   differences in spatial depth gradients, reducing noisy predictions when
-   the backbone capacity gap is large.
 
 **SVD initialization** (`--svd_init`): warm-starts the student decoder and
 heads from the teacher weights by computing a truncated SVD projection.  This
@@ -84,7 +80,7 @@ torchrun --standalone --nproc-per-node=7 distillation_dual.py \
   --s2_dec_embed_dim 512 --s2_dec_depth 6 --s2_dec_heads 4 --s2_prefer_dinov2 \
   --disable_s1 --disable_s3 --disable_s4 --disable_s5 \
   --kd_feat_weight 0.1 --kd_feat_mode cosine_margin --kd_feat_margin 0.9 \
-  --lambda_grad 1.0 --svd_init --teacher_dec_depth 12 \
+  --svd_init --teacher_dec_depth 12 \
   --lr 3e-5 --epochs 50 --batch_size 1
 
 # S3 — reduced decoder (same encoder as S2, decoder 256/4/4)
@@ -94,7 +90,7 @@ torchrun --standalone --nproc-per-node=7 distillation_dual.py \
   --s4_dec_embed_dim 256 --s4_dec_depth 4 --s4_dec_heads 4 --s4_prefer_dinov2 \
   --enable_s4 --disable_s1 --disable_s2 --disable_s3 --disable_s5 \
   --kd_feat_weight 0.1 --kd_feat_mode cosine_margin --kd_feat_margin 0.9 \
-  --lambda_grad 1.0 --svd_init --teacher_dec_depth 12 \
+  --svd_init --teacher_dec_depth 12 \
   --lr 3e-5 --epochs 50 --batch_size 1
 
 # S1 — MobileNet CNN baseline
@@ -105,7 +101,7 @@ torchrun --standalone --nproc-per-node=7 distillation_dual.py \
   --s1_backbone_name mobilenetv3_large_100 \
   --disable_s2 --disable_s3 --disable_s4 --disable_s5 \
   --kd_feat_weight 0.1 --kd_feat_mode cosine_margin --kd_feat_margin 0.9 \
-  --lambda_grad 1.0 --svd_init --teacher_dec_depth 12 \
+  --svd_init --teacher_dec_depth 12 \
   --lr 3e-5 --epochs 50 --batch_size 1
 
 # S4 — ViT-Tiny encoder
@@ -116,7 +112,7 @@ torchrun --standalone --nproc-per-node=7 distillation_dual.py \
   --s5_model_name vit_tiny_patch16_224 \
   --enable_s5 --disable_s1 --disable_s2 --disable_s3 --disable_s4 \
   --kd_feat_weight 0.1 --kd_feat_mode cosine_margin --kd_feat_margin 0.9 \
-  --lambda_grad 1.0 --svd_init --teacher_dec_depth 12 \
+  --svd_init --teacher_dec_depth 12 \
   --lr 3e-5 --epochs 50 --batch_size 1
 ```
 
@@ -324,7 +320,6 @@ Key flags used in the Moon experiment:
 ```
 --svd_init --teacher_dec_depth 12
 --kd_feat_weight 0.1 --kd_feat_mode cosine_margin --kd_feat_margin 0.9
---lambda_grad 1.0
 --teacher_conf_thresh 0.2
 --lr 3e-5 --epochs 60
 ```
@@ -420,7 +415,6 @@ python evaluation/blendedmvs/eval_compare_all_bmvs.py \
 | `--kd_feat_weight` | 0.0 | Weight for feature alignment loss (0 = disabled) |
 | `--kd_feat_mode` | mixed | Feature loss mode: `cosine_margin` (recommended) or `mixed` |
 | `--kd_feat_margin` | 0.9 | Tolerance margin alpha for cosine_margin mode |
-| `--lambda_grad` | 0.0 | Weight for gradient smoothness loss (0 = disabled) |
 | `--teacher_conf_thresh` | 0.0 | Confidence threshold for pseudo-GT filtering |
 | `--s{N}_freeze_backbone` | off | Freeze student N's encoder (only adapter + decoder train) |
 | `--disable_s{N}` | off | Skip student N entirely |
