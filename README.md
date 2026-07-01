@@ -6,25 +6,26 @@
 
 **Accepted at ECCV 2026**
 
+[Clémentine Grethen](https://clementinegrethen.github.io)<sup>1</sup> &nbsp;·&nbsp;
+[Florient Chouteau](https://scholar.google.com/scholar?q=Florient+Chouteau)<sup>2</sup> &nbsp;·&nbsp;
+[Géraldine Morin](https://www.irit.fr/~Geraldine.Morin/)<sup>1</sup> &nbsp;·&nbsp;
+[Simone Gasparini](https://www.irit.fr/~Simone.Gasparini/)<sup>1</sup>
+
+<sup>1</sup> IRIT, Toulouse INP, University of Toulouse &nbsp;&nbsp; <sup>2</sup> Airbus Defence and Space
+
 **Paper:** [arXiv placeholder] | **[Project Page](https://clementinegrethen.github.io/publications/ECCV.html)**
 
-> This repository provides a **knowledge distillation framework** for compressing
-> large stereo 3D reconstruction models (teacher) into lightweight student networks.
-> The **teacher** is [MASt3R](https://github.com/naver/mast3r), a 688M-parameter
-> geometric foundation model that reconstructs dense 3D point maps and camera pose
-> from uncalibrated stereo pairs.  **Students** are compact networks (CNN or ViT encoder
-> + lightweight cross-view decoder) trained to reproduce the teacher's dense predictions
-> without requiring ground-truth annotations.
+> **A general-purpose knowledge distillation framework for stereo 3D reconstruction foundation models.**
+> Compress any MASt3R-style teacher into a lightweight student — applicable to any domain, any dataset.
+> We demonstrate it on two settings: specialized distillation for lunar imagery (MOONSt3R teacher)
+> and generalist distillation on BlendedMVS (standard MASt3R teacher).
+> A broader extension to additional domains and architectures is currently in preparation.
 >
-> We demonstrate the framework on two complementary experiments:
-> - **Experiment 1 — Specialized distillation (Moon):** teacher is MOONSt3R, a
->   lunar-finetuned MASt3R; students are specialized for lunar stereo reconstruction.
-> - **Experiment 2 — Generalist distillation (BlendedMVS):** teacher is the standard
->   MASt3R foundation model; students distill general-purpose 3D reconstruction.
->
-> The primary contribution is the **distillation pipeline** — not a model zoo.
-> Users can plug in any student architecture, apply SVD-based decoder initialization,
-> enable feature alignment loss, and train on any stereo-pair dataset.
+> The **teacher** is [MASt3R](https://github.com/naver/mast3r), a 688M-parameter geometric
+> foundation model. **Students** are compact networks (CNN or ViT encoder + lightweight
+> cross-view decoder) trained entirely from teacher pseudo-GT — no ground-truth annotations required.
+> The framework provides: SVD-based decoder initialization, cosine-margin feature alignment loss,
+> and a multi-student training loop where all students share one teacher forward pass per iteration.
 
 ---
 
