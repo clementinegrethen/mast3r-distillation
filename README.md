@@ -58,6 +58,73 @@ significantly reduces the number of epochs needed to reach good performance.
 
 ---
 
+## Reproducing Paper Students
+
+The four students evaluated in the paper can be reproduced with the commands below.
+All share the same teacher (`MOONSt3R.pth`), dataset, and training recipe.
+
+| ID | Encoder | Decoder (dim/depth/heads) | Params | Role |
+|----|---------|--------------------------|--------|------|
+| S1 | MobileNetV3-Large | 512 / 6 / 4 | 135.7 M | CNN baseline |
+| S2 | DINOv2 ViT-S/14 | 512 / 6 / 4 | 154.9 M | Best student |
+| S3 | DINOv2 ViT-S/14 | 256 / 4 / 4 | 94.9 M | Reduced decoder (7.3× smaller than teacher) |
+| S4 | ViT-Tiny/16 | 512 / 6 / 4 | 138.5 M | Smaller ViT encoder |
+| Teacher | ViT-Large | 768 / 12 / 12 | 688.6 M | MASt3R (frozen) |
+
+```bash
+export TEACHER_CKPT=/path/to/MOONSt3R.pth
+export DATA_ROOT=/path/to/StereoLunar
+export OUTPUT_DIR=/path/to/output
+
+# S2 — best student (DINOv2 ViT-S, full decoder, feature alignment + SVD init)
+torchrun --standalone --nproc-per-node=7 distillation_dual.py \
+  --teacher_ckpt $TEACHER_CKPT \
+  --train_dataset "LunarDataset(split='train', ROOT='${DATA_ROOT}/nadir_clean_0_90', ...)" \
+  --s2_output_dir ${OUTPUT_DIR}/s2_vit_small \
+  --s2_dec_embed_dim 512 --s2_dec_depth 6 --s2_dec_heads 4 --s2_prefer_dinov2 \
+  --disable_s1 --disable_s3 --disable_s4 --disable_s5 \
+  --kd_feat_weight 0.1 --kd_feat_mode cosine_margin --kd_feat_margin 0.9 \
+  --lambda_grad 1.0 --svd_init --teacher_dec_depth 12 \
+  --lr 3e-5 --epochs 50 --batch_size 1
+
+# S3 — reduced decoder (same encoder as S2, decoder 256/4/4)
+torchrun --standalone --nproc-per-node=7 distillation_dual.py \
+  --teacher_ckpt $TEACHER_CKPT \
+  --s4_output_dir ${OUTPUT_DIR}/s3_reduced \
+  --s4_dec_embed_dim 256 --s4_dec_depth 4 --s4_dec_heads 4 --s4_prefer_dinov2 \
+  --enable_s4 --disable_s1 --disable_s2 --disable_s3 --disable_s5 \
+  --kd_feat_weight 0.1 --kd_feat_mode cosine_margin --kd_feat_margin 0.9 \
+  --lambda_grad 1.0 --svd_init --teacher_dec_depth 12 \
+  --lr 3e-5 --epochs 50 --batch_size 1
+
+# S1 — MobileNet CNN baseline
+torchrun --standalone --nproc-per-node=7 distillation_dual.py \
+  --teacher_ckpt $TEACHER_CKPT \
+  --output_dir ${OUTPUT_DIR}/s1_mobilenet \
+  --s1_dec_embed_dim 512 --s1_dec_depth 6 --s1_dec_heads 4 \
+  --s1_backbone_name mobilenetv3_large_100 \
+  --disable_s2 --disable_s3 --disable_s4 --disable_s5 \
+  --kd_feat_weight 0.1 --kd_feat_mode cosine_margin --kd_feat_margin 0.9 \
+  --lambda_grad 1.0 --svd_init --teacher_dec_depth 12 \
+  --lr 3e-5 --epochs 50 --batch_size 1
+
+# S4 — ViT-Tiny encoder
+torchrun --standalone --nproc-per-node=7 distillation_dual.py \
+  --teacher_ckpt $TEACHER_CKPT \
+  --s5_output_dir ${OUTPUT_DIR}/s4_vit_tiny \
+  --s5_dec_embed_dim 512 --s5_dec_depth 6 --s5_dec_heads 4 \
+  --s5_model_name vit_tiny_patch16_224 \
+  --enable_s5 --disable_s1 --disable_s2 --disable_s3 --disable_s4 \
+  --kd_feat_weight 0.1 --kd_feat_mode cosine_margin --kd_feat_margin 0.9 \
+  --lambda_grad 1.0 --svd_init --teacher_dec_depth 12 \
+  --lr 3e-5 --epochs 50 --batch_size 1
+```
+
+> All students can also be co-trained in a single run (one teacher forward pass serves all).
+> See `scripts/train/train_moon_example.sh` for the full multi-student command.
+
+---
+
 ## Installation
 
 ```bash
