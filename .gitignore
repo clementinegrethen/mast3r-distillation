@@ -1,0 +1,44 @@
+# Model weights
+*.pth
+*.pt
+*.ckpt
+*.safetensors
+
+# Output and results
+output/
+results/
+runs/
+
+# SLURM logs
+slurm_*.out
+slurm_*.err
+
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+dist/
+build/
+.eggs/
+*.egg
+
+# Data
+Datas/
+data/
+*.npz
+*.exr
+*.lz4
+
+# Jupyter
+.ipynb_checkpoints/
+*.ipynb
+
+# Editors / OS
+.DS_Store
+.vscode/
+.idea/
+*.swp
+*~
+
+# Conda
+.conda/

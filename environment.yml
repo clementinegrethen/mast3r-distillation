@@ -1,0 +1,34 @@
+name: mast3r
+channels:
+  - pytorch
+  - nvidia
+  - conda-forge
+  - defaults
+dependencies:
+  - python=3.10
+  - pip
+  - pytorch>=2.1
+  - torchvision
+  - pytorch-cuda=12.1
+  - numpy
+  - scipy
+  - matplotlib
+  - tqdm
+  - pip:
+    - opencv-python
+    - einops
+    - timm>=0.9
+    - roma
+    - huggingface_hub
+    - transformers>=4.40
+    - tensorboard
+    - Pillow
+    - plyfile
+    - trimesh
+    - kornia
+    - lpips
+    - gradio
+    - pyglet<2
+    - pyopengl
+    - kapture
+    - kapture-localization
