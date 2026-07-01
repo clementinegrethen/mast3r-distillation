@@ -1,10 +1,12 @@
-# MASt3R Distillation Framework
+# Geometric Foundation Model Distillation for Efficient Lunar 3D Reconstruction
 
 [![License: CC BY-NC 4.0](https://img.shields.io/badge/License-CC%20BY--NC%204.0-lightgrey.svg)](LICENSE)
 [![Python 3.10+](https://img.shields.io/badge/python-3.10%2B-blue.svg)](https://www.python.org/)
-[![ECCV 2026](https://img.shields.io/badge/ECCV-2026-green.svg)]()
+[![ECCV 2026](https://img.shields.io/badge/ECCV-2026-green.svg)](https://clementinegrethen.github.io/publications/ECCV.html)
 
-**Paper:** [arXiv placeholder] | **Project Page:** [placeholder]
+**Accepted at ECCV 2026**
+
+**Paper:** [arXiv placeholder] | **[Project Page](https://clementinegrethen.github.io/publications/ECCV.html)**
 
 > A framework for distilling MASt3R into lightweight student models for
 > domain-specific 3D reconstruction.  The primary contribution is the
