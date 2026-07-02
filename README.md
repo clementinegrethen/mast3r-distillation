@@ -21,7 +21,7 @@
 > Compress any MASt3R-style teacher into a lightweight student — applicable to any domain, any dataset.
 > We demonstrate it on two settings: specialized distillation for lunar imagery (MOONSt3R teacher)
 > and generalist distillation on BlendedMVS (standard MASt3R teacher).
-> A broader extension to additional domains and architectures is currently in preparation.
+> **A broader extension to additional domains and architectures is currently in preparation, ECCV paper is limited to the Moon use-case**
 >
 > The **teacher** is [MASt3R](https://github.com/naver/mast3r), a 688M-parameter geometric
 > foundation model. **Students** are compact networks (CNN or ViT encoder + lightweight
