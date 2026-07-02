@@ -360,6 +360,12 @@ python compare_pair_reports.py --root results/moon/
 ---
 
 ## Usage Example 2 — BlendedMVS (Generalist Distillation)
+### Download pretrained MASt3R model
+
+```bash
+mkdir -p checkpoints/
+wget https://download.europe.naverlabs.com/ComputerVision/MASt3R/MASt3R_ViTLarge_BaseDecoder_512_catmlpdpt_metric.pth -P checkpoints/
+```
 
 **Teacher:** standard MASt3R (`MASt3R_ViTLarge_BaseDecoder_512_catmlpdpt_metric.pth`) —
 a general-purpose 3D foundation model, not domain-adapted.  This experiment shows that
