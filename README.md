@@ -16,8 +16,8 @@
 **Paper:** [arXiv placeholder] | **[Project Page](https://clementinegrethen.github.io/publications/ECCV.html)**
 
 > **A general-purpose knowledge distillation framework for stereo 3D reconstruction foundation models.**
-> Compress any MASt3R-style teacher into a lightweight student — applicable to any domain, any dataset.
-> We demonstrate it on two settings: specialized distillation for lunar imagery (MOONSt3R teacher)
+Compress any MASt3R-style teacher into a lightweight student — applicable to any domain, any dataset.
+We demonstrate it on two settings: specialized distillation for lunar imagery (MOONSt3R teacher)
 > and generalist distillation on BlendedMVS (standard MASt3R teacher).
 > A broader extension to additional domains and architectures is currently in preparation.
 >
