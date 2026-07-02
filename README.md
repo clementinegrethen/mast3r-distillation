@@ -26,7 +26,7 @@
 >
 > The **teacher** is [MASt3R](https://github.com/naver/mast3r), a 688M-parameter geometric
 > foundation model. **Students** are compact networks (CNN or ViT encoder + lightweight
-> cross-view decoder) trained entirely from teacher pseudo-GT — no ground-truth annotations required.
+> cross-view decoder) trained entirely from teacher pseudo-GT — **no ground-truth annotations required.**
 > The framework provides: SVD-based decoder initialization, cosine-margin feature alignment loss,
 > and a multi-student training loop where all students share one teacher forward pass per iteration.
 ---
