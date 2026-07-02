@@ -462,12 +462,7 @@ python evaluation/blendedmvs/eval_compare_all_bmvs.py \
 If you use this framework, please cite:
 
 ```bibtex
-@inproceedings{grethen2026mast3rdistillation,
-  title     = {Distilling MASt3R for Lightweight Domain-Specific 3D Reconstruction},
-  author    = {Grethen, Cl\'ementine and others},
-  booktitle = {European Conference on Computer Vision (ECCV)},
-  year      = {2026},
-}
+
 ```
 
 ---
@@ -478,12 +473,6 @@ This work builds directly on:
 
 - **MASt3R** — Vincent Leroy, Yohann Cabon, Jerome Revaud.
   [github.com/naver/mast3r](https://github.com/naver/mast3r)
-- **DUSt3R** — Shuzhe Wang, Vincent Leroy, Yohann Cabon, Boris Chidlovskii, Jerome Revaud.
-  [github.com/naver/dust3r](https://github.com/naver/dust3r)
-- **DINOv2** — Maxime Oquab et al.
-  [github.com/facebookresearch/dinov2](https://github.com/facebookresearch/dinov2)
-- SVD initialization inspired by **Lillama** (arXiv:2412.16719).
-- Feature alignment loss from **Depth Anything V2** (Yang et al., NeurIPS 2024).
-
 The `mast3r/` and `dust3r/` directories are vendored from their respective
 upstream repositories under their original licenses.
+This work was supported by the French Agence Nationale de la Recherche (ANR, “Investissements d’avenir”, ANR-21-ESRE-0051) and the European Space Agency (ESA, contract 4000140461/23/NL/GLC/my).
