@@ -7,8 +7,8 @@
 **Accepted at ECCV 2026**
 
 [Clémentine Grethen](https://clementinegrethen.github.io)<sup>1</sup> &nbsp;·&nbsp;
-[Florient Chouteau](https://scholar.google.com/scholar?q=Florient+Chouteau)<sup>2</sup> &nbsp;·&nbsp;
-[Géraldine Morin](https://www.irit.fr/~Geraldine.Morin/)<sup>1</sup> &nbsp;·&nbsp;
+[Florient Chouteau]([https://scholar.google.com/scholar?q=Florient+Chouteau](https://fchouteau.github.io))<sup>2</sup> &nbsp;·&nbsp;
+[Géraldine Morin]([https://www.irit.fr/~Geraldine.Morin/](https://scholar.google.com/citations?user=H8QDhhAAAAAJ&hl=en))<sup>1</sup> &nbsp;·&nbsp;
 [Simone Gasparini](https://www.irit.fr/~Simone.Gasparini/)<sup>1</sup>
 
 <sup>1</sup> IRIT, Toulouse INP, University of Toulouse &nbsp;&nbsp; <sup>2</sup> Airbus Defence and Space
