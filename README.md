@@ -9,9 +9,10 @@
 [Clémentine Grethen](https://clementinegrethen.github.io)<sup>1</sup> &nbsp;·&nbsp;
 [Florient Chouteau](https://fchouteau.github.io)<sup>2</sup> &nbsp;·&nbsp;
 [Géraldine Morin](https://scholar.google.com/citations?user=H8QDhhAAAAAJ&hl=en)<sup>1</sup> &nbsp;·&nbsp;
-[Simone Gasparini](https://www.irit.fr/~Simone.Gasparini/)<sup>1</sup>
-<sup>1</sup> IRIT, Toulouse INP, University of Toulouse &nbsp;&nbsp; <sup>2</sup> Airbus Defence and Space
+[Simone Gasparini](https://www.irit.fr/~Simone.Gasparini/)<sup>1</sup><br>
 
+<sup>1</sup> IRIT, Toulouse INP, University of Toulouse &nbsp;&nbsp;
+<sup>2</sup> Airbus Defence and Space
 **Paper:** [arXiv placeholder] | **[Project Page](https://clementinegrethen.github.io/publications/ECCV.html)**
 
 > **A general-purpose knowledge distillation framework for stereo 3D reconstruction foundation models.**
