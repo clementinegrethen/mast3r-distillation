@@ -277,6 +277,7 @@ lunar orbital imagery (low texture, extreme illumination, limited parallax).
 Students are trained to specialize in this domain from the adapted teacher's
 dense pseudo-GT, without requiring ground-truth depth or pose annotations.
 
+Weight for MASt3R on the Moon: https://huggingface.co/cgrethen/MOONSt3R
 ### Dataset structure
 
 The StereoLunar dataset uses the MASt3R dataset format.  Each subdirectory
